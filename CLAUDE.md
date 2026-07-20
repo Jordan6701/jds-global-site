@@ -33,7 +33,7 @@ Site 100 % statique, aucun build, aucun framework. HTML/CSS/JS vanilla.
 ## Conventions à respecter
 
 - **Design** : noir graphite / laiton. Ne pas introduire d'autres couleurs. Palette dans `:root` de `styles.css` (`--noir #0B0B0C`, `--brass #C9A24B`, `--brass-hi #E7C87A`, `--creme #EAE5D9`). Typo : Oswald (titres, uppercase) + Inter (texte). Signature visuelle : filets dorés fins (`--line`), pas de motifs "danger"/hachures.
-- **Logo** : monogramme texte "JDS" (JD laiton, S crème) + "GLOBAL" espacé dessous. Pas d'image logo.
+- **Logo** : fichier `logo.svg` (Inter ExtraBold, JD laiton + S clair, GLOBAL centré dessous) — même logo que le hub arbitrage. Ne pas recréer en texte CSS.
 - **URLs propres** : liens internes SANS extension (`/services`, pas `/services.html`) — cohérent avec `cleanUrls` de vercel.json. Canonicals et sitemap suivent la même règle.
 - **Langue** : tout en français.
 - **Contenu** : ne PAS mentionner le rachat de "retours" ou produits non neufs (choix assumé : on ne rachète que du neuf). Catégories de rachat = les 4 de la grille, pas plus.
