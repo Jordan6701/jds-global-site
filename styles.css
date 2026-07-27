@@ -152,7 +152,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 48px;margin-top:10px;}
 @media(max-width:900px){
   .grid,.steps,.stats{grid-template-columns:repeat(2,1fr);}
   .why-grid{grid-template-columns:repeat(2,1fr);gap:24px 28px;}
-  .split,.contact-grid{grid-template-columns:1fr;gap:30px;}
+  .split,.contact-grid{grid-template-columns:minmax(0,1fr);gap:30px;}
 }
 @media(max-width:640px){
   nav.links{position:fixed;inset:66px 0 auto 0;flex-direction:column;gap:0;background:var(--noir);border-bottom:1px solid var(--line);padding:8px 0;transform:translateY(-130%);transition:transform .3s;}
