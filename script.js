@@ -41,6 +41,21 @@ if(lf){
      seul le jour ou FORMSPREE_ID est rempli — il ne peut donc pas devenir faux. */
   if(!FORMSPREE_ID) dire('Ce bouton ouvre votre logiciel de messagerie avec la demande préremplie : il reste à l’envoyer depuis votre messagerie.');
 
+  /* Messages en francais quelle que soit la langue du navigateur : Chrome affiche
+     sinon les siens, dans la langue de son interface. Remis a zero des que le visiteur
+     tape, sinon le champ resterait invalide meme une fois corrige. */
+  var MESSAGES={
+    nom:'Indiquez votre nom.',
+    mail:'Indiquez une adresse e-mail valide, pour que nous puissions vous répondre.',
+    msg:'Décrivez le lot, même en une ligne.'
+  };
+  Array.prototype.forEach.call(lf.querySelectorAll('[required]'),function(champ){
+    champ.addEventListener('invalid',function(){
+      champ.setCustomValidity(MESSAGES[champ.id]||'Ce champ est obligatoire.');
+    });
+    champ.addEventListener('input',function(){ champ.setCustomValidity(''); });
+  });
+
   lf.addEventListener('submit',function(ev){
     ev.preventDefault();
     var f=ev.target;

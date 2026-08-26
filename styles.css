@@ -137,6 +137,11 @@ form{display:flex;flex-direction:column;gap:14px;}
 .field textarea{min-height:120px;resize:vertical;}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 form .btn{justify-content:center;padding:15px;font-size:14px;margin-top:4px;}
+.req{color:var(--brass);font-weight:600;}
+.formlegend{font-size:12px;color:var(--muted);margin-bottom:20px;}
+/* Champ refuse par le navigateur : la bordure le designe avant meme de lire la bulle.
+   :user-invalid et non :invalid — sinon tout s'allume avant la premiere saisie. */
+#leadform input:user-invalid,#leadform textarea:user-invalid{border-color:#E08A7A;}
 .formnote{font-size:12px;color:var(--muted);}
 .formnote a{color:var(--brass);text-decoration:underline;text-underline-offset:3px;}
 /* Statut de l'envoi, separe de la mention RGPD : celle-ci doit rester lisible
