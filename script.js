@@ -26,8 +26,21 @@ document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 // Contact form
 var lf=document.getElementById('leadform');
 if(lf){
-  var note=lf.querySelector('.formnote');
+  var statut=document.getElementById('formstatus');
   var btn=lf.querySelector('button[type="submit"]');
+
+  function dire(txte,etat){
+    if(!statut) return;
+    statut.textContent=txte;
+    statut.className='formstatus'+(etat?' '+etat:'');
+  }
+
+  /* Tant qu'aucun identifiant Formspree n'est renseigne, le bouton n'envoie rien :
+     il ouvre la messagerie du visiteur, qui doit poster l'e-mail lui-meme. On le dit,
+     sinon le bouton promet un envoi qu'il ne fait pas. L'avertissement disparait tout
+     seul le jour ou FORMSPREE_ID est rempli — il ne peut donc pas devenir faux. */
+  if(!FORMSPREE_ID) dire('Ce bouton ouvre votre logiciel de messagerie avec la demande préremplie : il reste à l’envoyer depuis votre messagerie.');
+
   lf.addEventListener('submit',function(ev){
     ev.preventDefault();
     var f=ev.target;
@@ -41,6 +54,7 @@ if(lf){
     };
     if(FORMSPREE_ID){
       btn.disabled=true;btn.textContent='Envoi en cours…';
+      dire('');
       fetch('https://formspree.io/f/'+FORMSPREE_ID,{
         method:'POST',
         headers:{'Content-Type':'application/json','Accept':'application/json'},
@@ -49,11 +63,11 @@ if(lf){
         if(r.ok){
           lf.reset();
           btn.textContent='Demande envoyée ✓';
-          if(note)note.textContent='Merci — votre demande est bien reçue. On vous répond rapidement.';
+          dire('Merci — votre demande nous est parvenue. Nous revenons vers vous rapidement.','ok');
         }else{throw new Error('bad status');}
       }).catch(function(){
         btn.disabled=false;btn.textContent='Envoyer ma demande';
-        if(note)note.textContent="L'envoi a échoué. Réessayez, ou écrivez-nous directement à contact@jds-global.com.";
+        dire('L’envoi a échoué : rien ne nous est parvenu. Réessayez, ou écrivez-nous directement à contact@jds-global.com.','ko');
       });
     }else{
       var body='Nom : '+payload.nom+'\n'+

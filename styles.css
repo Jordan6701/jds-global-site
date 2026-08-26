@@ -138,6 +138,13 @@ form{display:flex;flex-direction:column;gap:14px;}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 form .btn{justify-content:center;padding:15px;font-size:14px;margin-top:4px;}
 .formnote{font-size:12px;color:var(--muted);}
+.formnote a{color:var(--brass);text-decoration:underline;text-underline-offset:3px;}
+/* Statut de l'envoi, separe de la mention RGPD : celle-ci doit rester lisible
+   apres un envoi reussi comme apres un echec. */
+.formstatus{font-size:13px;line-height:1.5;margin-top:14px;color:var(--muted);}
+.formstatus:empty{display:none;}
+.formstatus.ok{color:var(--brass-hi);}
+.formstatus.ko{color:#E08A7A;}
 
 /* FOOTER */
 footer{border-top:1px solid var(--line);padding:44px 0 48px;margin-top:10px;}
