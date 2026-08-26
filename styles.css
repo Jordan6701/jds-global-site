@@ -137,6 +137,13 @@ form{display:flex;flex-direction:column;gap:14px;}
 .field textarea{min-height:120px;resize:vertical;}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 form .btn{justify-content:center;padding:15px;font-size:14px;margin-top:4px;}
+/* Consentement commercial : case a part, jamais prechochee, et libellee sans
+   ambiguite. Le formulaire s'envoie qu'elle soit cochee ou non — c'est ce qui la
+   distingue d'un opt-in force, refuse par les routeurs comme par le RGPD. */
+.consent{display:flex;align-items:flex-start;gap:10px;margin-top:2px;}
+.consent input{flex:0 0 auto;width:16px;height:16px;margin-top:2px;accent-color:var(--brass);cursor:pointer;}
+.consent label{font-size:13px;line-height:1.5;color:var(--muted);cursor:pointer;text-transform:none;letter-spacing:normal;font-family:'Inter',sans-serif;font-weight:400;margin:0;}
+.consent input:focus-visible{outline:2px solid var(--brass);outline-offset:2px;}
 .req{color:var(--brass);font-weight:600;}
 .formlegend{font-size:12px;color:var(--muted);margin-bottom:20px;}
 /* Champ refuse par le navigateur : la bordure le designe avant meme de lire la bulle.
