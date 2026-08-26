@@ -2,7 +2,7 @@
 // Après avoir créé ton formulaire sur https://formspree.io (gratuit),
 // colle ici l'ID fourni (ex: "mzbqwxyz"). Tant que c'est vide, le
 // formulaire utilise le mailto (ouvre la messagerie du visiteur).
-var FORMSPREE_ID = "";
+var FORMSPREE_ID = "xqpkzpwr";
 // =========================
 
 // Mobile menu
