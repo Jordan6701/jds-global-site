@@ -65,6 +65,9 @@ if(lf){
       email:f.mail.value,
       telephone:(f.tel&&f.tel.value)||'',
       message:f.msg.value,
+      /* Trace du consentement marketing, transmise avec la demande : sans elle, rien ne
+         permettrait de prouver plus tard qui avait accepte d'etre recontacte. */
+      marketing:(f.optin&&f.optin.checked)?'OUI — case cochée':'non',
       _subject:'Demande de rachat de stock — '+((f.soc&&f.soc.value)||f.nom.value)
     };
     if(FORMSPREE_ID){
@@ -88,7 +91,8 @@ if(lf){
       var body='Nom : '+payload.nom+'\n'+
         'Société : '+(payload.societe||'—')+'\n'+
         'E-mail : '+payload.email+'\n'+
-        'Téléphone : '+(payload.telephone||'—')+'\n\n'+
+        'Téléphone : '+(payload.telephone||'—')+'\n'+
+        'Offres par e-mail : '+payload.marketing+'\n\n'+
         'Lot à écouler :\n'+payload.message+'\n';
       window.location.href='mailto:contact@jds-global.com?subject='+encodeURIComponent(payload._subject)+'&body='+encodeURIComponent(body);
     }
