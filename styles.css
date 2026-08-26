@@ -33,7 +33,7 @@ nav.links{display:flex;align-items:center;gap:28px;}
 nav.links a{font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:13px;color:var(--creme);opacity:.85;transition:opacity .2s,color .2s;}
 nav.links a:hover{opacity:1;color:var(--brass-hi);}
 nav.links a[aria-current="page"]{color:var(--brass);opacity:1;}
-.btn{display:inline-flex;align-items:center;gap:9px;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:13px;padding:11px 20px;border-radius:3px;background:var(--brass);color:#0B0B0C;transition:transform .15s,background .2s;white-space:nowrap;}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:13px;padding:13px 20px;border-radius:3px;background:var(--brass);color:#0B0B0C;transition:transform .15s,background .2s;white-space:nowrap;}
 .btn:hover{background:var(--brass-hi);transform:translateY(-1px);}
 .btn.ghost{background:transparent;color:var(--creme);border:1px solid var(--line);}
 .btn.ghost:hover{border-color:var(--brass);color:var(--brass-hi);}
@@ -48,6 +48,11 @@ nav.links .btn{display:none;}
   background:radial-gradient(120% 140% at 15% 0%, rgba(201,162,75,.06), transparent 55%),linear-gradient(160deg,var(--graphite),var(--noir) 70%);overflow:hidden;}
 .hero-frame::after{content:"";position:absolute;top:9px;right:9px;bottom:9px;left:9px;border:1px solid rgba(201,162,75,.14);border-radius:2px;pointer-events:none;}
 .hero h1{font-weight:700;font-size:clamp(38px,7vw,84px);line-height:.94;letter-spacing:.005em;margin:16px 0 20px;}
+/* Le titre d'accueil est passé de 4 à 13 mots : à la taille d'origine il occupait cinq
+   lignes et repoussait le sous-titre et l'appel à l'action sous la ligne de flottaison.
+   Une phrase longue se compose plus petit — c'est la composition qui s'adapte au texte. */
+.hero h1.long{font-size:clamp(30px,4.4vw,54px);line-height:1.04;max-width:19ch;}
+@media(min-width:900px){ .hero h1.long{max-width:24ch;} }
 .hero h1 b{color:var(--brass);font-weight:700;}
 .hero .lead{font-size:clamp(16px,1.9vw,19px);max-width:600px;color:#c9c5bb;}
 .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px;}
@@ -140,6 +145,9 @@ footer{border-top:1px solid var(--line);padding:44px 0 48px;margin-top:10px;}
 .foot-nav{display:flex;flex-direction:column;gap:8px;}
 .foot-nav a{font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:12px;color:var(--creme);opacity:.8;}
 .foot-nav a:hover{color:var(--brass-hi);opacity:1;}
+.foot-contact{font-size:13px;color:var(--creme);margin-bottom:10px;}
+.foot-contact a{color:var(--brass);font-weight:600;}
+.foot-contact a:hover{color:var(--brass-hi);}
 .foot .legal{font-size:12px;color:var(--muted);line-height:1.7;max-width:560px;}
 .foot .brand .n1{font-size:20px;}
 
@@ -165,3 +173,19 @@ footer{border-top:1px solid var(--line);padding:44px 0 48px;margin-top:10px;}
   nav.links .btn{display:inline-flex;}
   .grid,.steps,.stats,.row2{grid-template-columns:1fr;}
 }
+
+/* FAQ — filets dorés fins, comme le reste du site. Pas de fond ni de carte :
+   la hiérarchie typographique suffit à séparer les questions. */
+.faq{display:flex;flex-direction:column;margin-top:26px;border-top:1px solid var(--line);}
+.faq-item{border-bottom:1px solid var(--line);}
+.faq-item summary{font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.02em;
+  font-size:16px;color:var(--creme);padding:18px 40px 18px 0;cursor:pointer;list-style:none;
+  position:relative;transition:color .2s;}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary:hover{color:var(--brass-hi);}
+.faq-item summary:focus-visible{outline:2px solid var(--brass);outline-offset:3px;}
+.faq-item summary::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  font-family:'Oswald',sans-serif;font-size:22px;font-weight:400;color:var(--brass);line-height:1;}
+.faq-item[open] summary::after{content:"–";}
+.faq-item[open] summary{color:var(--brass);}
+.faq-item p{font-size:15px;color:#c3bfb5;line-height:1.7;margin:0;padding:0 40px 22px 0;max-width:70ch;}

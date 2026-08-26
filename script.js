@@ -36,6 +36,7 @@ if(lf){
       societe:(f.soc&&f.soc.value)||'',
       email:f.mail.value,
       telephone:(f.tel&&f.tel.value)||'',
+      localisation:(f.lieu&&f.lieu.value)||'',
       message:f.msg.value,
       _subject:'Demande de rachat de stock — '+((f.soc&&f.soc.value)||f.nom.value)
     };
@@ -59,7 +60,8 @@ if(lf){
       var body='Nom : '+payload.nom+'\n'+
         'Société : '+(payload.societe||'—')+'\n'+
         'E-mail : '+payload.email+'\n'+
-        'Téléphone : '+(payload.telephone||'—')+'\n\n'+
+        'Téléphone : '+(payload.telephone||'—')+'\n'+
+        'Localisation : '+(payload.localisation||'—')+'\n\n'+
         'Lot à écouler :\n'+payload.message+'\n';
       window.location.href='mailto:contact@jds-global.com?subject='+encodeURIComponent(payload._subject)+'&body='+encodeURIComponent(body);
     }
