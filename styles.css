@@ -165,3 +165,24 @@ footer{border-top:1px solid var(--line);padding:44px 0 48px;margin-top:10px;}
   nav.links .btn{display:inline-flex;}
   .grid,.steps,.stats,.row2{grid-template-columns:1fr;}
 }
+
+/* ===== Bandeau de consentement =====
+   Ancré en bas, jamais en superposition plein écran : il informe sans bloquer la lecture.
+   Mêmes filets dorés et même typographie que le reste du site. */
+.cc{position:fixed;left:0;right:0;bottom:0;z-index:200;background:rgba(11,11,12,.97);
+  backdrop-filter:blur(10px);border-top:1px solid var(--line);
+  transform:translateY(100%);transition:transform .32s ease;}
+.cc.show{transform:translateY(0);}
+.cc-in{max-width:var(--maxw);margin:0 auto;padding:18px 24px 20px;
+  display:flex;align-items:center;gap:14px 28px;flex-wrap:wrap;}
+.cc-txt{flex:1 1 380px;min-width:0;font-size:13.5px;line-height:1.6;color:#c3bfb5;}
+.cc-txt b{display:block;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;font-size:13px;color:var(--creme);margin-bottom:5px;}
+.cc-txt a{color:var(--brass);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
+.cc-txt a:hover{color:var(--brass-hi);}
+.cc-acts{display:flex;gap:10px;flex-wrap:wrap;flex:none;}
+/* 11 px de retrait donnaient 41 px de haut : sous le seuil de 44 px, on rate la cible
+   au pouce — et ce bandeau se lit surtout sur telephone. */
+.cc-acts .btn{padding:14px 22px;}
+@media(max-width:560px){ .cc-in{padding:16px 20px 18px;} .cc-acts{width:100%;} .cc-acts .btn{flex:1 1 auto;justify-content:center;} }
+@media(prefers-reduced-motion:reduce){ .cc{transition:none;} }

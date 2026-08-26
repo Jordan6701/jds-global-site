@@ -65,3 +65,58 @@ if(lf){
     }
   });
 }
+
+/* ===== Consentement aux traceurs =====
+   Etat des lieux au 26 aout 2026 : ce site ne charge AUCUN traceur. Le bandeau n'a donc
+   rien a bloquer aujourd'hui — il recueille le choix a l'avance et expose le mecanisme qui
+   le fera respecter le jour ou un outil de mesure sera ajoute.
+   Pour brancher un outil plus tard, appeler jdsConsent.auTraceur(function(){ ... }) :
+   la fonction ne s'executera que si le visiteur a accepte, et immediatement s'il accepte
+   apres coup. Ne jamais poser de script de mesure en dehors de ce passage.
+   Le choix vit dans le stockage local du visiteur : aucun cookie, rien ne nous est transmis. */
+var jdsConsent=(function(){
+  var CLE='jds-consent', ecouteurs=[];
+  function lire(){ try{ return localStorage.getItem(CLE); }catch(e){ return null; } }
+  function ecrire(v){ try{ localStorage.setItem(CLE,v); }catch(e){} }
+  function diffuser(){ if(lire()!=='accepte') return;
+    while(ecouteurs.length){ try{ ecouteurs.shift()(); }catch(e){} } }
+
+  function bandeau(){
+    if(document.querySelector('.cc')) return;
+    var el=document.createElement('aside');
+    el.className='cc'; el.setAttribute('role','dialog');
+    el.setAttribute('aria-label','Consentement aux cookies de mesure');
+    el.innerHTML='<div class="cc-in"><div class="cc-txt">'
+      +'<b>Cookies de mesure</b>'
+      +'Ce site n’en dépose aucun aujourd’hui. Si nous ajoutons un outil de statistiques, '
+      +'il ne sera activé que si vous l’acceptez ici. '
+      +'<a href="/confidentialite">En savoir plus</a></div>'
+      +'<div class="cc-acts">'
+      +'<button type="button" class="btn ghost" data-cc="refuse">Refuser</button>'
+      +'<button type="button" class="btn" data-cc="accepte">Accepter</button>'
+      +'</div></div>';
+    document.body.appendChild(el);
+    requestAnimationFrame(function(){ el.classList.add('show'); });
+    el.addEventListener('click',function(e){
+      var b=e.target.closest('[data-cc]'); if(!b) return;
+      ecrire(b.getAttribute('data-cc'));
+      el.classList.remove('show');
+      setTimeout(function(){ el.remove(); },340);
+      diffuser();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){
+    if(!lire()) bandeau();
+    // Depuis la politique de confidentialite : revenir sur son choix.
+    var r=document.getElementById('cookie-reopen');
+    if(r) r.addEventListener('click',function(){ try{ localStorage.removeItem(CLE); }catch(e){} bandeau(); });
+    diffuser();
+  });
+
+  return {
+    etat:lire,
+    auTraceur:function(fn){ ecouteurs.push(fn); if(lire()==='accepte') diffuser(); },
+    rouvrir:bandeau
+  };
+})();
