@@ -110,6 +110,11 @@ section{padding:clamp(52px,7vw,90px) 0;}
 .stat{border:1px solid var(--line);border-radius:4px;padding:26px;background:var(--graphite);text-align:left;}
 .stat .big{font-family:'Oswald',sans-serif;font-weight:700;font-size:34px;color:var(--brass);line-height:1;}
 .stat .lbl{font-size:13px;color:#b4b0a6;margin-top:8px;}
+/* Deux colonnes de chiffres cote a cote. min-width:0 empeche la grille de refuser
+   de descendre sous la largeur du mot le plus long — sans ca, elle deborde l'ecran. */
+.stats.duo{grid-template-columns:repeat(2,1fr);}
+.stat{min-width:0;}
+@media(max-width:560px){ .stats.duo{grid-template-columns:1fr;} .stat{padding:20px;} }
 
 /* CTA strip */
 .ctastrip{border:1px solid var(--line);border-radius:4px;padding:clamp(30px,5vw,52px);text-align:center;
@@ -185,4 +190,14 @@ footer{border-top:1px solid var(--line);padding:44px 0 48px;margin-top:10px;}
    au pouce — et ce bandeau se lit surtout sur telephone. */
 .cc-acts .btn{padding:14px 22px;}
 @media(max-width:560px){ .cc-in{padding:16px 20px 18px;} .cc-acts{width:100%;} .cc-acts .btn{flex:1 1 auto;justify-content:center;} }
-@media(prefers-reduced-motion:reduce){ .cc{transition:none;} }
+/* Signalement : le bandeau est deja a l'ecran, on le fait remarquer plutot que
+   de laisser croire que le bouton est mort. */
+@keyframes cc-attn{
+  0%{box-shadow:0 0 0 0 rgba(201,162,75,0);}
+  30%{box-shadow:0 -16px 38px -10px rgba(201,162,75,.5);border-top-color:var(--brass-hi);}
+  100%{box-shadow:0 0 0 0 rgba(201,162,75,0);}
+}
+.cc-attn{animation:cc-attn 1s ease;}
+@media(prefers-reduced-motion:reduce){ .cc{transition:none;}
+  /* Sans animation, on garde une marque statique : l'effet doit rester perceptible. */
+  .cc-attn{animation:none;border-top-color:var(--brass-hi);} }

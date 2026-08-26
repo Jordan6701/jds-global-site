@@ -81,8 +81,17 @@ var jdsConsent=(function(){
   function diffuser(){ if(lire()!=='accepte') return;
     while(ecouteurs.length){ try{ ecouteurs.shift()(); }catch(e){} } }
 
+  /* Attire l'oeil sur un bandeau deja affiche : sans ca, « Modifier mon choix »
+     ne produit aucun effet visible quand le visiteur n'a pas encore repondu. */
+  function signaler(el){
+    el.classList.remove('cc-attn');
+    void el.offsetWidth;              // force le navigateur a rejouer l'animation
+    el.classList.add('cc-attn');
+  }
+
   function bandeau(){
-    if(document.querySelector('.cc')) return;
+    var deja=document.querySelector('.cc');
+    if(deja){ signaler(deja); return; }
     var el=document.createElement('aside');
     el.className='cc'; el.setAttribute('role','dialog');
     el.setAttribute('aria-label','Consentement aux cookies de mesure');
@@ -106,17 +115,24 @@ var jdsConsent=(function(){
     });
   }
 
+  /* Le bandeau est deja la : on le signale sans remettre le choix a zero.
+     Sinon on efface le choix precedent et on le redemande. */
+  function rouvrir(){
+    if(!document.querySelector('.cc')){ try{ localStorage.removeItem(CLE); }catch(e){} }
+    bandeau();
+  }
+
   document.addEventListener('DOMContentLoaded',function(){
     if(!lire()) bandeau();
     // Depuis la politique de confidentialite : revenir sur son choix.
     var r=document.getElementById('cookie-reopen');
-    if(r) r.addEventListener('click',function(){ try{ localStorage.removeItem(CLE); }catch(e){} bandeau(); });
+    if(r) r.addEventListener('click',rouvrir);
     diffuser();
   });
 
   return {
     etat:lire,
     auTraceur:function(fn){ ecouteurs.push(fn); if(lire()==='accepte') diffuser(); },
-    rouvrir:bandeau
+    rouvrir:rouvrir
   };
 })();
